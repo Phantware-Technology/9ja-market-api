@@ -2,7 +2,7 @@ import express from 'express'
 // import dotenv from 'dotenv'
 // import mongoose from 'mongoose'
 import cors from 'cors'
-
+import products from './products.js'
 // cors solution established
 const corsOption = {
   origin: '*',
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
   return res.status(200).json({ msg: 'You are welcome to 9JA-MARKET API' })
 })
 app.get('/products', (req, res) => {
-  return res.json([2, 3, 4])
+  return res.json(products)
 })
 
 app.listen(PORT, () => {
