@@ -1,6 +1,6 @@
 import express from 'express'
-// import dotenv from 'dotenv'
-// import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+import mongoose from 'mongoose'
 import cors from 'cors'
 import products from './products.js'
 // cors solution established
@@ -18,19 +18,19 @@ const corsOptions = {
 }
 
 const app = express()
-// dotenv.config()
+dotenv.config()
 const PORT = process.env.PORT || 8800
-// const connect = async () => {
-//   try {
-//     await mongoose.connect(process.env.MONGO_URL)
-//     console.log('Connected to mongoDB.')
-//   } catch (error) {
-//     throw error
-//   }
-// }
-// mongoose.connection.on('disconnected', () => {
-//   console.log('mongoDB disconnected!')
-// })
+const connect = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL)
+    console.log('Connected to mongoDB.')
+  } catch (error) {
+    throw error
+  }
+}
+mongoose.connection.on('disconnected', () => {
+  console.log('mongoDB disconnected!')
+})
 
 // Middlewares
 app.use(express.json())
@@ -44,6 +44,6 @@ app.get('/products', (req, res) => {
 })
 
 app.listen(PORT, () => {
-  // connect()
+  connect()
   console.log(`App running at port ${PORT}`)
 })
