@@ -37,7 +37,7 @@ mongoose.connection.on('disconnected', () => {
 // Middlewares
 app.use(express.json())
 app.use(cors(corsOptions))
-app.use('/api/register', authRoute)
+app.use('/api/auth', authRoute)
 app.get('/', (req, res) => {
   return res.status(200).json({ msg: 'You are welcome to 9JA-MARKET API' })
 })
