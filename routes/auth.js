@@ -1,21 +1,21 @@
 import User from '../models/User.js'
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import Joi from 'joi'
 import express from 'express'
 
 const router = express.Router()
 
-router.post('/register', async (res, req) => {
+router.post('/', async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
     email: Joi.string().min(3).max(200).required().email(),
     password: Joi.string().min(6).max(200),
   })
 
-  const { error } = schema.valid(req.body)
+  const { error } = schema.validate(req.body)
 
-  if (error) return res.status(400).send(error.data[0].message)
+  if (error) return res.status(400).send(error.details[0].message)
 
   let user = await User.findOne({ email: req.body.email })
   if (user) return res.status(400).send('User already exist')
@@ -29,4 +29,7 @@ router.post('/register', async (res, req) => {
     password: hash,
   })
   await user.save()
+  return res.status(200).send('User has been created.')
 })
+
+export default router

@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import products from './products.js'
+import authRoute from './routes/auth.js'
+
 // cors solution established
 const corsOption = {
   origin: '*',
@@ -35,7 +37,7 @@ mongoose.connection.on('disconnected', () => {
 // Middlewares
 app.use(express.json())
 app.use(cors(corsOptions))
-
+app.use('/api/register', authRoute)
 app.get('/', (req, res) => {
   return res.status(200).json({ msg: 'You are welcome to 9JA-MARKET API' })
 })
