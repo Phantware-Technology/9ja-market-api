@@ -61,9 +61,8 @@ router.post('/login', async (req, res) => {
       { id: user._id, name: user.name, email: user.email },
       process.env.JWT
     )
-
-    console.log('doc', user)
     const { password, ...info } = user._doc
+
     return res.status(200).json({ ...info, token })
   } catch (error) {
     return res.status(500).json(error)
